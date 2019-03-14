@@ -1,7 +1,12 @@
+//- form - action : 데이터를 어디로 보낼 것인지 지정(아래 코드의 경우 routes.search) / method="get" : 존재하는 자원에 대한 요청(이봐 서버 난 이 리소스를 원해)
+
 header.header
     div.header__column
         a(href=routes.home)
             i.fab.fa-youtube
+    div.header__column
+        form(action=routes.search, method="get") 
+            input(type="text", placeholder = "Search by term...", name="term")
     div.header__column
         ul
             li
