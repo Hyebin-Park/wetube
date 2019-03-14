@@ -1,3 +1,6 @@
+// APPLY SINGLE SOURCE OF TRUTH(SSOT)
+// 한 곳에 모든 정보를 모아둠으로써 코드를 명료화하고, 버그를 최소화시키자!
+
 // Global
 const HOME = "/";
 const JOIN = "/join";
