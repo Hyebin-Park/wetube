@@ -1,5 +1,10 @@
 // res.render 함수에 들어가는 인자 1 : 템플릿 / 인자 2 : 템플릿에 추가할 정보가 담긴 객체
-export const home = (req, res) => res.render("home", { pageTitle : "Home" });
+
+import { videosDB } from "../db"
+
+export const home = (req, res) => {
+    res.render("home", { pageTitle : "Home", videosDB })
+};
 
 export const search = (req, res) => { 
     // const searchingBy = req.query.term <-- OLD SCHOOL WAY

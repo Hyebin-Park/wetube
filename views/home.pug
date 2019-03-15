@@ -1,6 +1,12 @@
 //- layouts/main.pug를 상속받는다
 extends layouts/main
+include mixins/videoBlock
 
 block content
     div.videos
-        h1 Video
+        each video in videosDB
+            +videoBlock({
+                title: video.title,
+                views: video.views,
+                videoFile: video.videoFile
+            })
