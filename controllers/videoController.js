@@ -11,7 +11,7 @@ export const search = (req, res) => {
     // USING Destructuring assignment <-- NEW SCHOOL ES6 WAY reference : https://medium.com/@pyrolistical/destructuring-nested-objects-9dabdd01a3b8
     console.log(req.query.term);
     const { query: { term: searchingBy } } = req;
-    res.render("Search", { pageTitle : "Search", searchingBy})
+    res.render("Search", { pageTitle : "Search", searchingBy, videosDB})
 };
 
 export const videos = (req, res) => res.render("videos", { pageTitle : "Videos" })
