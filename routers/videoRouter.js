@@ -1,12 +1,14 @@
 import express from "express";
 import routes from "../routes";
-import { videos, upload, videoDetail, editVideo, deleteVideo } from "../controllers/videoController";
+import { videos, getUpload, postUpload, videoDetail, editVideo, deleteVideo } from "../controllers/videoController";
 
 const videoRouter = express.Router();
 
 // 여기 속하는 주소는 모두 /videos/~
 
-videoRouter.get(routes.upload, upload);
+videoRouter.get(routes.upload, getUpload);
+videoRouter.post(routes.upload, postUpload);
+
 videoRouter.get(routes.videos, videos);
 videoRouter.get(routes.videoDetail(), videoDetail);
 videoRouter.get(routes.editVideo, editVideo);

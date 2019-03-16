@@ -4,10 +4,17 @@ include mixins/videoBlock
 block content
     div.search__header
         h3 Searching for #{searchingBy}
-    div.search__videos 
-        each video in videoDB
+    div.search__videos
+        each video in videosDB
             +videoBlock({
-                title:video.title,
-                views:item.views,
-                videoFile:item.videoFile
-            })
+                title: video.title,
+                views: video.views,
+                videoFile: video.videoFile
+            }) 
+    //- each video in videoDB
+    //-     +videoBlock({  
+    //-         title: video.title,
+    //-         views: video.views,
+    //-         videoFile: video.videoFile
+    //-     })
+         

@@ -30,12 +30,14 @@ const routes = {
     search: SEARCH,
     users: USERS,
     userDetail: id => {
-        if(id) {
-            return `/users/${id}`;
+        if (id) {
+        // this is for template
+          return `/users/${id}`;
         } else {
-            return USER_DETAIL;
+        // this is for router
+          return USER_DETAIL;
         }
-    },
+      },
     editProfile: EDIT_PROFILE,
     changePassword: CHANGE_PASSWORD,
     videos: VIDEOS,
