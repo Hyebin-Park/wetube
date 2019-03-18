@@ -1,6 +1,5 @@
 // res.render 함수에 들어가는 인자 1 : 템플릿 / 인자 2 : 템플릿에 추가할 정보가 담긴 객체
 
-import { videosDB } from "../db"
 import routes from "../routes"
 
 export const home = (req, res) => {
@@ -24,11 +23,11 @@ export const getUpload = (req, res) => {
 };
 
 export const postUpload = (req, res) => {
-
+    console.log(req.body)
     const {
         body: {  file, title, description }
     } = req;
-    
+
     // to do : upload and save video
     // 사용자가 비디오를 업로드 하면 새로운 id를 반환받고, 업로드 후에 
     // 사용자를 VIDEO_DETAIL 페이지로 이동시키는 로직
