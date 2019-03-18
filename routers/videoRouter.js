@@ -9,7 +9,7 @@ const videoRouter = express.Router();
 videoRouter.get(routes.upload, getUpload);
 videoRouter.post(routes.upload, postUpload);
 
-videoRouter.get(routes.videos, videos);
+// :id로 시작하는 주소의 라우터들은 밑으로 내려준다.
 videoRouter.get(routes.videoDetail(), videoDetail);
 videoRouter.get(routes.editVideo, editVideo);
 videoRouter.get(routes.deleteVideo, deleteVideo);
