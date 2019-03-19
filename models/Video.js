@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
-// todo : model(document name, actual data) / schema(shape, definition)
-
+//schema(shape, definition)
 const VideoSchema = new mongoose.Schema({
     fileUrl: {
         type: String,
@@ -30,5 +29,6 @@ const VideoSchema = new mongoose.Schema({
 
 })
 
+// model(document name, actual data)
 const model = mongoose.model("Video", VideoSchema);
 export default model;

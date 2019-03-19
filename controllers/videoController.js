@@ -1,9 +1,17 @@
 // res.render 함수에 들어가는 인자 1 : 템플릿 / 인자 2 : 템플릿에 추가할 정보가 담긴 객체
 
 import routes from "../routes"
+import Video from "../models/Video";
 
-export const home = (req, res) => {
-    res.render("home", { pageTitle : "Home", videosDB })
+export const home = async (req, res) => {
+    try{
+        const videosDB = await Video.find({});
+        res.render("home", { pageTitle : "Home", videosDB });
+    } catch(error) {
+        console.log(error)
+        res.render("home", { pageTitle : "Home", videosDB : [] });
+    }
+    
 };
 
 export const search = (req, res) => { 
