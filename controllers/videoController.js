@@ -30,16 +30,24 @@ export const getUpload = (req, res) => {
  
 };
 
-export const postUpload = (req, res) => {
+export const postUpload = async (req, res) => {
     console.log(req.body)
     const {
-        body: {  file, title, description }
+        body: { title, description},
+        // 파일 자체가 아닌 **경로**를 불러오기
+        file: { path }
     } = req;
-
+    const newVideo = await Video.create({
+        fileUrl : path,
+        title,
+        description
+    })
+    console.log(newVideo)
     // to do : upload and save video
     // 사용자가 비디오를 업로드 하면 새로운 id를 반환받고, 업로드 후에 
     // 사용자를 VIDEO_DETAIL 페이지로 이동시키는 로직
-    res.redirect(routes.videoDetail(324393))
+    res.redirect(routes.videoDetail(newVideo.id))
+    
 
 }
 export const videoDetail = (req, res) => res.render("videoDetail", { pageTitle : "Video Detail" })
