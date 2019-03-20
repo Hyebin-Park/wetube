@@ -51,6 +51,20 @@ export const postUpload = async (req, res) => {
     
 
 }
-export const videoDetail = (req, res) => res.render("videoDetail", { pageTitle : "Video Detail" })
+export const videoDetail = async (req, res) => {
+    // req.params : ':~' 로 정의된 라우트 파라미터를 담는 객체
+    const {
+        params: { id }
+    } = req;
+    try {
+        const videoDB = await Video.findById(id);
+        res.render("videoDetail", { pageTitle : "Video Detail", videoDB }); 
+    } catch(error){
+        res.redirect(routes.home);
+    }
+   
+};
+
+
 export const editVideo = (req, res) => res.render("editVideo", { pageTitle : "Edit Video" })
 export const deleteVideo = (req, res) => res.render("deleteVideo", { pageTitle : "Delete Video" })
