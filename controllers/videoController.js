@@ -66,5 +66,30 @@ export const videoDetail = async (req, res) => {
 };
 
 
-export const editVideo = (req, res) => res.render("editVideo", { pageTitle : "Edit Video" })
+export const getEditVideo = async (req, res) => { 
+    const {
+        params: {id}
+    } = req;
+    try {
+        const videoDB = await Video.findById(id);
+        res.render("editVideo", {pageTitle: `Edit ${videoDB.title}`, videoDB})
+    } catch(error){
+        res.redirect(routes.home)
+    }
+}
+
+export const postEditVideo = async (req, res) => {
+    const {
+        params: { id },
+        body: { title, description }
+    } = req;
+    try {
+        // 그냥 업데이트만 하면 작업이 마무리 되는 것이기 때문에 값을 변수에 저장할 필요 없음
+        await Video.findOneAndUpdate({ id }, { title, description })
+        res.redirect(routes.videoDetail(id))
+    } catch(error){
+        res.redirect(routes.home)
+    }
+};
+
 export const deleteVideo = (req, res) => res.render("deleteVideo", { pageTitle : "Delete Video" })
