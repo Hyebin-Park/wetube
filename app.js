@@ -19,6 +19,10 @@ app.use(helmet());
 // pug : html 파일 작성시 반복 작업을 최소화 하게 해주는 템플릿 엔진 중 하나
 app.set('view engine', "pug")
 
+// express.static() : 특정 디렉토리에 포함된 정적파일을 제공함
+//  /uploads 경로 접두부를 통해 uploads 디렉토리에 포함된 파일을 로드할 수 있게 된다.
+app.use("/uploads", express.static("uploads"))
+
 //use middleware globally for all route
 app.use(cookieParser());
 
