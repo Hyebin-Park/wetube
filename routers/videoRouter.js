@@ -17,7 +17,9 @@ videoRouter.post(routes.upload, uploadVideo, postUpload);
 // VIDEO DETAIL
 // :id로 시작하는 주소의 라우터들은 밑으로 내려준다.
 // 경로에서 ':'로 시작하는 부분은 동적으로 할당되는 변수를 뜻함, 이 값은 request의 parameter로 저장됨
-// 따라서 :id 부분에 어떤 값이 들어가도 parameter로 적용되어 get신호가 요청되고, 컨트롤러 함수가 실행되는 것 
+// 따라서 url 경로의 :id 부분에 어떤 값이 들어가도 parameter로 적용되어 get신호가 요청되고, 컨트롤러 함수가 실행되는 것 
+// 라우트에 필요한건 :id의 '값'이 아니라 parameter로 들어오는 '변수'인 것임.
+// https://m.blog.naver.com/PostView.nhn?blogId=azure0777&logNo=220475344428&proxyReferer=https%3A%2F%2Fwww.google.com%2F
 videoRouter.get(routes.videoDetail(), videoDetail);
 
 
@@ -26,6 +28,6 @@ videoRouter.get(routes.editVideo(), getEditVideo);
 videoRouter.post(routes.editVideo(), postEditVideo);
 
 // DELETE VIDEO
-videoRouter.get(routes.deleteVideo, deleteVideo);
+videoRouter.get(routes.deleteVideo(), deleteVideo);
 
 export default videoRouter;

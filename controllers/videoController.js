@@ -58,7 +58,7 @@ export const videoDetail = async (req, res) => {
     } = req;
     try {
         const videoDB = await Video.findById(id);
-        res.render("videoDetail", { pageTitle : "Video Detail", videoDB }); 
+        res.render("videoDetail", { pageTitle : videoDB.title, videoDB }); 
     } catch(error){
         res.redirect(routes.home);
     }
@@ -85,11 +85,22 @@ export const postEditVideo = async (req, res) => {
     } = req;
     try {
         // 그냥 업데이트만 하면 작업이 마무리 되는 것이기 때문에 값을 변수에 저장할 필요 없음
-        await Video.findOneAndUpdate({ id }, { title, description })
+        // _id : which is added to all MongoDB documents by default and have a default type of ObjectId.
+        await Video.findOneAndUpdate({ _id : id }, { title, description })
         res.redirect(routes.videoDetail(id))
     } catch(error){
         res.redirect(routes.home)
     }
 };
 
-export const deleteVideo = (req, res) => res.render("deleteVideo", { pageTitle : "Delete Video" })
+// 삭제버튼? --> url로 가서 id를 가져오자 --> 삭제!
+export const deleteVideo = async(req, res) => {
+    const {
+        params: { id }
+    } = req;
+    try {
+        await Video.findOneAndRemove({_id : id})
+    } catch(error) {}
+    res.redirect(routes.home);
+    
+}
