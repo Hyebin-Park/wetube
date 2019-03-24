@@ -2,7 +2,11 @@
 
 mixin videoBlock(video)
     div.videoBlock
+<<<<<<< HEAD
         a(href=`${routes.videoDetail(video.id)}`)
+=======
+        a(href=routes.videoDetail(video.id))
+>>>>>>> aaec6155560c5687fad6b1147584c9fb5d8d4cfe
             video.videoBlock__thumbnail(src=video.videoFile, controls=true)
             h4.videoBlock__title=video.title
             h6.videoBlock__views=video.views

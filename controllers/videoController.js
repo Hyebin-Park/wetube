@@ -5,7 +5,11 @@ import Video from "../models/Video";
 
 export const home = async (req, res) => {
     try{
+<<<<<<< HEAD
         const videosDB = await Video.find({}).sort({_id:-1});
+=======
+        const videosDB = await Video.find({});
+>>>>>>> aaec6155560c5687fad6b1147584c9fb5d8d4cfe
         console.log(videosDB)
         res.render("home", { pageTitle : "Home", videosDB });
     } catch(error) {
@@ -15,11 +19,16 @@ export const home = async (req, res) => {
     
 };
 
+<<<<<<< HEAD
 export const search = async (req, res) => { 
+=======
+export const search = (req, res) => { 
+>>>>>>> aaec6155560c5687fad6b1147584c9fb5d8d4cfe
     // const searchingBy = req.query.term <-- OLD SCHOOL WAY
     // USING Destructuring assignment <-- NEW SCHOOL ES6 WAY reference : https://medium.com/@pyrolistical/destructuring-nested-objects-9dabdd01a3b8
     console.log(req.query.term);
     const { query: { term: searchingBy } } = req;
+<<<<<<< HEAD
     let videosDB = [];
     try{
         videosDB = await Video.find({
@@ -28,6 +37,8 @@ export const search = async (req, res) => {
     } catch(error) {
         console.log(error)
     }
+=======
+>>>>>>> aaec6155560c5687fad6b1147584c9fb5d8d4cfe
     res.render("Search", { pageTitle : "Search", searchingBy, videosDB})
 };
 
@@ -108,9 +119,13 @@ export const deleteVideo = async(req, res) => {
     } = req;
     try {
         await Video.findOneAndRemove({_id : id})
+<<<<<<< HEAD
     } catch(error) {
         console.log(error)
     }
+=======
+    } catch(error) {}
+>>>>>>> aaec6155560c5687fad6b1147584c9fb5d8d4cfe
     res.redirect(routes.home);
     
 }
