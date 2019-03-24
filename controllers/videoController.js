@@ -5,7 +5,7 @@ import Video from "../models/Video";
 
 export const home = async (req, res) => {
     try{
-        const videosDB = await Video.find({});
+        const videosDB = await Video.find({}).sort({_id:-1});
         console.log(videosDB)
         res.render("home", { pageTitle : "Home", videosDB });
     } catch(error) {
@@ -15,11 +15,19 @@ export const home = async (req, res) => {
     
 };
 
-export const search = (req, res) => { 
+export const search = async (req, res) => { 
     // const searchingBy = req.query.term <-- OLD SCHOOL WAY
     // USING Destructuring assignment <-- NEW SCHOOL ES6 WAY reference : https://medium.com/@pyrolistical/destructuring-nested-objects-9dabdd01a3b8
     console.log(req.query.term);
     const { query: { term: searchingBy } } = req;
+    let videosDB = [];
+    try{
+        videosDB = await Video.find({
+            title: { $regex: searchingBy, $options: "i" }
+        });
+    } catch(error) {
+        console.log(error)
+    }
     res.render("Search", { pageTitle : "Search", searchingBy, videosDB})
 };
 
@@ -100,7 +108,9 @@ export const deleteVideo = async(req, res) => {
     } = req;
     try {
         await Video.findOneAndRemove({_id : id})
-    } catch(error) {}
+    } catch(error) {
+        console.log(error)
+    }
     res.redirect(routes.home);
     
 }
