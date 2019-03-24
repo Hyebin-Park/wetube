@@ -1,17 +1,9 @@
 import express from "express";
 import routes from "../routes";
-<<<<<<< HEAD
 import {userDetail, editProfile, changePassword } from "../controllers/userController";
 
 const userRouter = express.Router();
 
-=======
-import { users, userDetail, editProfile, changePassword } from "../controllers/userController";
-
-const userRouter = express.Router();
-
-userRouter.get(routes.users, users);
->>>>>>> aaec6155560c5687fad6b1147584c9fb5d8d4cfe
 
 // 여기 속하는 주소는 모두 /user/~
 
