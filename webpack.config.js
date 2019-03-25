@@ -20,33 +20,44 @@ const config = {
 
     // 모듈을 발견할 때 마다, 아래의 rule을 따르도록 한다.
     module: {
+
+        rules : [
+            {
+                test: /\.js$/,
+                use: [
+                    {
+                        loader: "babel-loader"
+                    }
+                ]
+            }
+        ],
         // 컴파일 된 css를 별도의 css파일로 분리해서 하나의 파일로 번들링할 것임
         rules: [
             // loader : test(로딩할 파일 지정), use(적용할 로더를 설정))키로 구성된 객체로 설정하며, 
             // 비 자바스크립트 파일을 웹팩이 이해하게끔 변경한다. 역순으로 실행됨
-        { 
-            test: /\.scss$/,
+            {    
+                test: /\.scss$/,
 
-            // 별도의 css 텍스트를 추출하는 플러그인(번들된 결과물을 처리)
-            use: ExtractCSS.extract([      
-                {
-                    loader: "css-loader"
+                // 별도의 css 텍스트를 추출하는 플러그인(번들된 결과물을 처리)
+                use: ExtractCSS.extract([      
+                    {
+                        loader: "css-loader"
 
-                },
-                {
-                    loader: "postcss-loader",
-                    options: {
-                        plugin() {
-                            return [autoprefixer({ browsers: "cover 99.5%" })];
+                    },
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            plugins() {
+                                return [autoprefixer({ browsers: "cover 99.5%" })];
+                            }
                         }
-                    }
 
-                },
-                {
-                    loader: "sass-loader"
-                }
-            ])
-        }
+                    },
+                    {
+                        loader: "sass-loader"
+                    }
+                ])
+            }
 
         ]
 
