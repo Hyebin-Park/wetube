@@ -4,25 +4,26 @@
 //- method="post" : 새로운 자원을 생성(이봐 서버 이 데이터를 보고 이거에 맞는 데이터를 보내봐) --> 데이터는 http 요청 바디에 추가 되어 전송된다
 
 header.header
-    div.header__column
-        a(href=routes.home)
-            i.fab.fa-youtube
-    div.header__column
-        form(action=routes.search, method="get") 
-            input(type="text", placeholder = "Search by term...", name="term")
-    div.header__column
-        ul
-            if !user.isAuthenticated
-                li
-                    a(href=routes.join) Join
-                li
-                    a(href=routes.login) Log In
-            else 
-                li
-                    a(href=`videos${routes.upload}`) Upload
-                li
-                    a(href=routes.userDetail(user.id)) Profile
-                li
-                    a(href=routes.logout) Log Out
-                
-    
+    div.header__wrapper
+        div.header__column
+            a(href=routes.home)
+                i.fab.fa-youtube
+        div.header__column
+            form(action=routes.search, method="get") 
+                input(type="text", placeholder = "Search by term...", name="term")
+        div.header__column
+            ul
+                if !user.isAuthenticated
+                    li
+                        a(href=routes.join) Join
+                    li
+                        a(href=routes.login) Log In
+                else 
+                    li
+                        a(href=`videos${routes.upload}`) Upload
+                    li
+                        a(href=routes.userDetail(user.id)) Profile
+                    li
+                        a(href=routes.logout) Log Out
+                    
+        

@@ -1,0 +1,64 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background-color: $grey;
+    color: $black;
+    font-family: BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 1.4rem;
+}
+
+main {
+    width: 100%;
+    max-width: 120rem;
+    margin: 0 auto;
+    min-height: 70vh;
+}
+
+button,
+input:not([type = "file"]),
+textarea,
+.fileUpload {
+    padding: .7rem 1rem;
+    width: 100%;
+    border:none;
+    border-radius: .5rem;
+    font-size: 1.2rem;
+    color: $black;
+    font-weight: 500;
+    background-color:$white;
+    // max-width: 32rem;
+    resize: none;
+
+    &::placeholder {
+        font-weight: 300;
+        color: rgba($black, .7);
+    }
+}
+
+button {
+    border: none;
+    color: white;
+    display: block;
+    
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0 .1rem .3rem rgba($black, .7),
+                0 .1rem .2rem rgba($black, .24);
+
+}
+
+.button--delete {
+    background-color: $dark-red;
+}
+
+.button--change-pw {
+    background-color: $blue;
+}
+
+button,
+input[type="submit"] {
+    cursor: pointer;
+}
