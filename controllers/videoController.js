@@ -46,6 +46,7 @@ export const postUpload = async (req, res) => {
         // 파일 자체가 아닌 **경로**를 불러오기
         file: { path }
     } = req;
+    // create(): 모델 생성 & 데이터베이스에 저장
     const newVideo = await Video.create({
         fileUrl : path,
         title,

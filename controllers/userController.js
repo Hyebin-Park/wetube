@@ -1,10 +1,12 @@
 import routes from "../routes";
+import User from "../models/User"
+
 
 export const getJoin = (req, res) => {
     res.render("join", { pageTitle: "Join" });
 };
 
-export const postJoin = (req, res) => {
+export const postJoin = async (req, res) => {
     // body parser 미들웨어가 요청바디를 읽을 수 있게 해준다.
     const {
         body: { name, email, password, password2 }
@@ -14,7 +16,16 @@ export const postJoin = (req, res) => {
         res.status(400);
         res.render("join", { pageTitle: "Join" });
     } else {
-        // to do : register user
+        try{
+            // to do : register user
+            const user = await User.create({
+                name,
+                email
+            })
+            await User.resigter(user, password);
+        }catch(error){
+            console.log(error)
+        }
         // to do : log user in
         res.redirect(routes.home)
     }
