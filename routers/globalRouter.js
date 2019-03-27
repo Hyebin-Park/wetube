@@ -7,7 +7,10 @@ import { getLogin, postLogin, logout, getJoin, postJoin } from "../controllers/u
 const globalRouter = express.Router();
 
 globalRouter.get(routes.join, getJoin);
-globalRouter.post(routes.join, postJoin);
+
+// postJoin(미들웨어)에서 받은 username(email)과 password정보를 postLogin으로 보낸다.
+// 마치 form을 통해 정보를 주듯이.
+globalRouter.post(routes.join, postJoin, postLogin);
 
 globalRouter.get(routes.home, home);
 

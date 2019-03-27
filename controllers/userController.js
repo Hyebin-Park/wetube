@@ -1,12 +1,15 @@
 import routes from "../routes";
 import User from "../models/User"
+import passport from "passport";
 
 
 export const getJoin = (req, res) => {
     res.render("join", { pageTitle: "Join" });
 };
 
-export const postJoin = async (req, res) => {
+
+// 미들웨어 함수로 바꿔준다.
+export const postJoin = async (req, res, next) => {
     // body parser 미들웨어가 요청바디를 읽을 수 있게 해준다.
     const {
         body: { name, email, password, password2 }
@@ -18,27 +21,27 @@ export const postJoin = async (req, res) => {
     } else {
         try{
             // to do : register user
-            const user = await User.create({
-                name,
-                email
-            })
-            await User.resigter(user, password);
+            const user = await User({name,email});
+            await User.register(user, password);
+            // postLogin한테 정보 넘겨주자!
+            next();
         }catch(error){
-            console.log(error)
+            console.log(`The error is ${error}`)
+            res.redirect(routes.home)
         }
         // to do : log user in
-        res.redirect(routes.home)
     }
-    res.render("join", { pageTitle: "Join" });
 };
 
 export const getLogin = (req, res) => {
     res.render("login");
 };
 
-export const postLogin = (req, res) => {
-    res.redirect(routes.home);
-};
+// local is strategy name we installed before
+export const postLogin = passport.authenticate('local', {
+    failureRedirect: routes.login,
+    successRedirect: routes.home
+})
 
 
 export const logout = (req, res) => {

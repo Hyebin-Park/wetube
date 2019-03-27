@@ -5,11 +5,13 @@ import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import passport from "passport";
 import { localsMiddleware } from "./middlewares";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
 import routes from "./routes";
+import "./passport"
 
 const app = express();
 
@@ -34,6 +36,13 @@ app.use(bodyParser.urlencoded({ extended : true }));
 
 // application에서 발생하는 모든 일들을 logging 하는 미들웨어
 app.use(morgan("dev"));
+
+// 위에서 실행된 쿠키파서로부터 내려온 쿠키를 사용할 것임.
+// 일단 passport를 초기화시키고
+app.use(passport.initialize());
+// 쿠키 정보에 해당하는 사용자를 찾아낸다
+// a middleware to alter the req object and change the 'user' value that is currently the session id (from the client cookie) into the true deserialized user object.
+app.use(passport.session());
 
 app.use(localsMiddleware);
 
