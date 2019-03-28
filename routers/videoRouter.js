@@ -1,17 +1,18 @@
 import express from "express";
 import routes from "../routes";
-import { videos, getUpload, postUpload, videoDetail, getEditVideo, postEditVideo, deleteVideo } from "../controllers/videoController";
+import { getUpload, postUpload, videoDetail, getEditVideo, postEditVideo, deleteVideo } from "../controllers/videoController";
 import { uploadVideo } from "../middlewares";
+import { onlyPrivate } from "../middlewares"
 
 const videoRouter = express.Router();
 
 // 여기 속하는 주소는 모두 /videos/~
 
 // UPLOAD
-videoRouter.get(routes.upload, getUpload);
+videoRouter.get(routes.upload, onlyPrivate, getUpload);
 
 // 1: post하면 2: videos/에 파일이 업로드 되고, 3: 해당 파일에 접근할 것.
-videoRouter.post(routes.upload, uploadVideo, postUpload);
+videoRouter.post(routes.upload, uploadVideo, onlyPrivate, postUpload);
 
 
 // VIDEO DETAIL
@@ -24,10 +25,10 @@ videoRouter.get(routes.videoDetail(), videoDetail);
 
 
 // EDIT VIDEO
-videoRouter.get(routes.editVideo(), getEditVideo);
-videoRouter.post(routes.editVideo(), postEditVideo);
+videoRouter.get(routes.editVideo(), onlyPrivate, getEditVideo);
+videoRouter.post(routes.editVideo(), onlyPrivate, postEditVideo);
 
 // DELETE VIDEO
-videoRouter.get(routes.deleteVideo(), deleteVideo);
+videoRouter.get(routes.deleteVideo(), onlyPrivate, deleteVideo);
 
 export default videoRouter;

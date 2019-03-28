@@ -15,5 +15,22 @@ export const localsMiddleware = (req, res, next) => {
     next();
 }
 
+// 로그아웃 상태인 경우에만 특정 주소를 담당하는 라우터의 실행을 허용하는 미들웨어
+export const onlyPublic = (req, res, next) => {
+    if(req.user){
+        res.redirect(routes.home);
+    } else {
+        next();
+    }
+}
+// 로그인 상태인 경우에만 특정 주소를 담당하는 라우터의 실행을 허용하는 미들웨어
+export const onlyPrivate = (req, res, next) => {
+    if(req.user){
+        next();
+    } else {
+        res.redirect(routes.home);
+    }
+}
+
 // form input 태그의 name이 videoFile인 파일 하나를 받겠다는 뜻
 export const uploadVideo = multerVideo.single("videoFile");

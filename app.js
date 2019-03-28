@@ -6,7 +6,9 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import passport from "passport";
+import mongoose from "mongoose";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import { localsMiddleware } from "./middlewares";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
@@ -17,6 +19,9 @@ import "./passport"
 const app = express();
 
 console.log(process.env.COOKIE_SECRET)
+
+// connect-mongo(MongoStore)에 session의 데이터를 저장하라고 지시한 상태.
+const CookieStore = MongoStore(session)
 
 // HTTP 헤더를 적절히 설정하여 웹 취약성으로부터 앱을 보호하는 미들웨어
 app.use(helmet());
@@ -46,7 +51,9 @@ app.use(session({
     // 정보를 암호화 시킴
     secret: process.env.COOKIE_SECRET,
     resave: true,
-    saveUninitialized: false
+    saveUninitialized: false,
+    // CookieStore와 mongoDB의 중간다리 역할을 함.이 과정을 통해 CookiStore를 mongoDB에 저장할 수 있게 됨.
+    store: new CookieStore({ mongooseConnection : mongoose.connection })
 }))
 
 // 위에서 실행된 쿠키파서로부터 내려온 쿠키를 사용할 것임.
@@ -56,7 +63,7 @@ app.use(passport.initialize());
 // session이 갖고있는 쿠키를 이용할 것이고, 그 쿠키 정보에 해당하는 사용자를 찾아낼 예정
 // a middleware to alter the req object and change the 'user' value that is currently the session id (from the client cookie) into the true deserialized user object.
 // how? passport에 해독된 쿠키를 넘겨 deserializeUser 함수를 실행시킴으로써
-// deserializeUser 함수의 결과 즉 쿠키에 해당하는 사용자를 미들웨어(localsMiddleware) routes의 request 객체에 할당시킨다.
+// deserializeUser 함수의 결과 즉 쿠키에 해당하는 user를 미들웨어(localsMiddleware) routes의 request 객체에 할당시킨다.
 // 어느 라우터에서든 로그인한 유저가 누구인지 알 수 있게 된 것임
 app.use(passport.session());
 
