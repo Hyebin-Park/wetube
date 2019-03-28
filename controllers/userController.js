@@ -43,13 +43,45 @@ export const postLogin = passport.authenticate('local', {
     successRedirect: routes.home
 })
 
-export const githubLoginCallback = (accessToken, refreshToken, profile, cb) => {
-    console.log(accessToken, refreshToken, profile, cb);
+// passport.js에 설정해놓은 strategy를 실행함.
+export const githubLogin = passport.authenticate('github');
+
+export const githubLoginCallback = async (accessToken, refreshToken, profile, cb) => {
+    const { 
+        _json: { id, avatar_url, name, email } 
+    } = profile;
+    try{
+        const user = await User.findOne({email});
+        if(user) {
+            user.githubId = id;
+            user.save();
+            return cb(null, user);
+        }
+        const newUser = await User.create({
+            email,
+            name,
+            githubId: id,
+            avatarUrl: avatar_url
+        })
+        return cb(null, newUser);
+
+        }catch(error) {
+            console.log(error)
+            return cb(error);
+        }
   };
+
+
+
+// 받아온 정보로 실질적인 로그인 작업을 수행하는 코드
+export const postGithubLogin = passport.authenticate("github", {
+    failureRedirect: routes.login,
+    successRedirect: routes.home
+})
 
 export const logout = (req, res) => {
     // to do : processing log out using passport
-    res.logout();
+    req.logout();
     res.redirect(routes.home);
 };
 

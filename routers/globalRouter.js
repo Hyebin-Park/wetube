@@ -1,9 +1,10 @@
 // these are automatically added by vs code
 import express from "express";
+import passport from "passport";
 import routes from "../routes";
 import { home, search } from "../controllers/videoController";
-import { getLogin, postLogin, logout, getJoin, postJoin } from "../controllers/userController";
-import { onlyPublic } from "../middlewares";
+import { getLogin, postLogin, logout, getJoin, postJoin, githubLogin, postGithubLogin } from "../controllers/userController";
+import { onlyPublic, onlyPrivate } from "../middlewares";
 
 const globalRouter = express.Router();
 
@@ -18,7 +19,13 @@ globalRouter.get(routes.login, onlyPublic, getLogin);
 globalRouter.post(routes.login, onlyPublic, postLogin);
 
 globalRouter.get(routes.home, home);
-globalRouter.get(routes.logout, logout);
+globalRouter.get(routes.logout, onlyPrivate, logout);
 globalRouter.get(routes.search,search);
+
+// 사용자가 auth/github에 접근하면 githubLogin을 실행시켜 /auth/github/callback으로 돌아오게 만든다. 
+globalRouter.get(routes.github, githubLogin);
+// /auth/github/callback로 가면 postGithubLogin를 실행시켜 로그인을 수행한다.
+globalRouter.get(routes.githubCallback, postGithubLogin); 
+
 
 export default globalRouter;
