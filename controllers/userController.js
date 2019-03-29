@@ -129,7 +129,35 @@ export const postEditProfile = async (req, res) => {
         })
         res.redirect(routes.me)
     } catch(error) {
-        res.render("editProfile", { pageTitle: "Edit Profile" })
+        res.redirect(routes.editProfile);
     }
 };
-export const changePassword = (req, res) => res.render("changePassword");
+export const getChangePassword = (req, res) => {
+    res.render("changePassword", { pageTitle: "Change Password" })
+};
+
+export const postChangePassword = async (req, res) => {
+    const {
+        body: {
+            oldPassword,
+            newPassword,
+            newPassword1
+        }
+    } = req;
+
+    try{
+        if(newPassword !== newPassword1){
+            console.log("go back, you're wrong")
+            // 상태코드를 바꿔주지 않으면 브라우저는 방금 작업이 성공적으로 수행된 것으로 착각함(200)
+            res.status(400);
+            res.redirect(`/users${routes.changePassword}`);
+            return;
+        }
+        await req.user.changePassword(oldPassword, newPassword);
+        res.redirect(routes.me);
+    }catch(error){
+        console.log(error)
+        res.status(400);
+        res.redirect(`/users${routes.changePassword}`);
+    }
+};
