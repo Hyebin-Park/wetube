@@ -63,7 +63,7 @@ app.use(passport.initialize());
 // session이 갖고있는 쿠키를 이용할 것이고, 그 쿠키 정보에 해당하는 사용자를 찾아낼 예정
 // a middleware to alter the req object and change the 'user' value that is currently the session id (from the client cookie) into the true deserialized user object.
 // how? passport에 해독된 쿠키를 넘겨 deserializeUser 함수를 실행시킴으로써
-// deserializeUser 함수의 결과 즉 쿠키에 해당하는 user를 미들웨어(localsMiddleware) routes의 request 객체에 할당시킨다.
+// deserializeUser 함수의 결과 즉 쿠키에 해당하는 user를 request 객체에 할당시킨다.
 // 어느 라우터에서든 로그인한 유저가 누구인지 알 수 있게 된 것임
 app.use(passport.session());
 

@@ -50,8 +50,11 @@ export const postUpload = async (req, res) => {
     const newVideo = await Video.create({
         fileUrl : path,
         title,
-        description
+        description,
+        creator: req.user.id
     })
+    req.user.videos.push(newVideo.id);
+    req.user.save()
     console.log(newVideo)
     // to do : upload and save video
     // 사용자가 비디오를 업로드 하면 새로운 id를 반환받고, 업로드 후에 
@@ -66,7 +69,8 @@ export const videoDetail = async (req, res) => {
         params: { id }
     } = req;
     try {
-        const videoDB = await Video.findById(id);
+        // populate("_") : ObjectId를 ref에 할당시킨 모델을 기준으로 실제 객체로 치환해주는 기능
+        const videoDB = await Video.findById(id).populate("creator");
         res.render("videoDetail", { pageTitle : videoDB.title, videoDB }); 
     } catch(error){
         res.redirect(routes.home);
