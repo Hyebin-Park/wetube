@@ -33,6 +33,7 @@ app.set('view engine', "pug");
 app.use("/uploads", express.static("uploads"));
 
 app.use("/static", express.static("static"));
+app.use("/media", express.static("media"));
 
 //use middleware globally for all route
 app.use(cookieParser());

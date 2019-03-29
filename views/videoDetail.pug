@@ -8,7 +8,6 @@ block content
             a(href=`${routes.editVideo(videoDB.id)}`) 
                 button Edit video
             h5.video__title=videoDB.title
-            span.video__views=videoDB.views
             p.video__description=videoDB.description
             if videoDB.views === 1
                 span.video__views 1 view

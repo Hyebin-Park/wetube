@@ -1,0 +1,33 @@
+.user-profile {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &__header {
+        display: flex; 
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 1.8rem; 
+ 
+        .profile__username{
+            font-size: 1.8rem;
+            margin-top: 1.5rem;
+        }
+    }
+
+    &__btns {
+        display: flex; 
+        align-items: center;
+        flex-direction: column;
+        
+        a {
+            button {
+                color: $black;
+            }
+        }
+        a:not(last-child) {
+            margin-bottom: 2rem;
+        }
+    }
+}
