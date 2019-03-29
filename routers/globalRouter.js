@@ -3,7 +3,7 @@ import express from "express";
 import passport from "passport";
 import routes from "../routes";
 import { home, search } from "../controllers/videoController";
-import { getLogin, postLogin, logout, getJoin, postJoin, githubLogin, postGithubLogin } from "../controllers/userController";
+import { getLogin, postLogin, logout, getJoin, postJoin, githubLogin, postGithubLogin, getMe } from "../controllers/userController";
 import { onlyPublic, onlyPrivate } from "../middlewares";
 
 const globalRouter = express.Router();
@@ -27,5 +27,6 @@ globalRouter.get(routes.github, githubLogin);
 // /auth/github/callback로 가면 postGithubLogin를 실행시켜 로그인을 수행한다.
 globalRouter.get(routes.githubCallback, postGithubLogin); 
 
+globalRouter.get(routes.me, getMe);
 
 export default globalRouter;

@@ -18,7 +18,6 @@ import "./passport"
 
 const app = express();
 
-console.log(process.env.COOKIE_SECRET)
 
 // connect-mongo(MongoStore)에 session의 데이터를 저장하라고 지시한 상태.
 const CookieStore = MongoStore(session)

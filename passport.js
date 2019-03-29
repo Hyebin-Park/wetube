@@ -21,7 +21,7 @@ passport.use(new GithubStrategy({
         callbackURL: `http://localhost:4000${routes.githubCallback}`
     }, 
         // 첫 passport.authenticate('github')를 통해 인증에 성공하면
-        // user를 찾거나 생성한 뒤, user객체를 인자로 받은 함수 호출
+        // user를 찾거나 생성한 뒤, user객체를 인자로 받은 ***함수 호출***
         // local 방식으로 로그인할 때의 조건이 갖춰짐 그 이후의 과정은 동일 ↓
         githubLoginCallback
     )
