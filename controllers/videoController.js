@@ -69,7 +69,7 @@ export const videoDetail = async (req, res) => {
         params: { id }
     } = req;
     try {
-        // populate("_") : ObjectId를 ref에 할당시킨 모델을 기준으로 실제 객체로 치환해주는 기능
+        // populate("_") : ref에 할당시킨 모델을 기준으로 ObjectId를 실제 객체로 치환해주는 기능
         const videoDB = await Video.findById(id).populate("creator");
         res.render("videoDetail", { pageTitle : videoDB.title, videoDB }); 
     } catch(error){
@@ -85,7 +85,12 @@ export const getEditVideo = async (req, res) => {
     } = req;
     try {
         const videoDB = await Video.findById(id);
-        res.render("editVideo", {pageTitle: `Edit ${videoDB.title}`, videoDB})
+        // 여기서는 id만 필요하기 때문에 populate를 통해 객체 전체를 받을 필요 없음.
+        if(videoDB.creator !== req.user.id){
+            throw Error();
+        } else {
+            res.render("editVideo", {pageTitle: `Edit ${videoDB.title}`, videoDB})
+        }
     } catch(error){
         res.redirect(routes.home)
     }
@@ -112,7 +117,12 @@ export const deleteVideo = async(req, res) => {
         params: { id }
     } = req;
     try {
-        await Video.findOneAndRemove({_id : id})
+        const videoDB = await Video.findById(id);
+        if(videoDB.creator !== req.user.id){
+            throw Error();
+        } else {
+            await Video.findOneAndRemove({ _id: id });
+        }
     } catch(error) {
         console.log(error)
     }

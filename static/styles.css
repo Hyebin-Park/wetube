@@ -374,6 +374,10 @@ input[type="submit"] {
     font-size: 1.4rem; }
   .video-detail__container .video__description {
     font-size: 1.6rem; }
+  .video-detail__container .video__author {
+    font-size: 1rem; }
+    .video-detail__container .video__author a {
+      color: #3498db; }
   .video-detail__container .video__comments {
     margin-top: 2.5rem; }
     .video-detail__container .video__comments .video__comment-number {
