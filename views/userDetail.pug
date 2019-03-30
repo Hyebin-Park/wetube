@@ -5,17 +5,27 @@ block content
     div.user-profile
         div.user-profile__header 
             if user.avatarUrl
-                img.u-avatar(src=user.avatarUrl)
+                img.u-avatar(src=`${user.avatarUrl}`)
             if !user.avatarUrl
                 img.u-avatar(src="/media/asdfw.JPG")
             h4.profile__username=user.name
-        if user.id === loggedUser.id
+            //- 로그아웃 된 상태엔 loggedUser가 null이기 때문에 에러가 뜬다. 따라서 loggedUser의 존재 여부를 판단하는 조건도 필요.
+        if loggedUser && user.id === loggedUser.id
             div.user-profile__btns
                 a(href=`/users${routes.editProfile}`)
                     button ✏️ Edit Profile
                 a(href=`/users${routes.changePassword}`)
                     button 🔒 Change Password
     div.uploaded-videos
+        if vidInfoByLoggedUser
+            each video in vidInfoByLoggedUser.videos 
+                +videoBlock({
+                    id:video.id,
+                    title:video.title,
+                    views:video.views,
+                    videoFile:video.fileUrl
+                })
+        else 
             each video in user.videos 
                 +videoBlock({
                     id:video.id,
