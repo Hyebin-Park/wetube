@@ -11,11 +11,16 @@
         width: 100rem;
     }
 
+    .fullscreen-width {
+        width: 100%;
+    }
+
     .videoPlayer__controls{
         opacity: 0;
         transition: opacity 0.4s linear;
         color: $white;
         position: absolute;
+        bottom: 0.1rem;
         z-index: 9;
         width: 100%;
         background-color: rgba($black, .5);

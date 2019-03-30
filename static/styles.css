@@ -476,6 +476,8 @@ input[type="submit"] {
     opacity: 1; }
   .videoPlayer video {
     width: 100rem; }
+  .videoPlayer .fullscreen-width {
+    width: 100%; }
   .videoPlayer .videoPlayer__controls {
     opacity: 0;
     -webkit-transition: opacity 0.4s linear;
@@ -484,6 +486,7 @@ input[type="submit"] {
     transition: opacity 0.4s linear;
     color: white;
     position: absolute;
+    bottom: 0.1rem;
     z-index: 9;
     width: 100%;
     background-color: rgba(68, 68, 68, 0.5);
