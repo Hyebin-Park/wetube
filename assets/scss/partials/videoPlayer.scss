@@ -30,7 +30,7 @@
         font-size: 1.6rem;
 
         
-        .videoPlayer__column:first-child span:last-child{
+        .videoPlayer__column:first-child span:not(:first-child){
             margin-left: 3rem;
             font-size: 2.5rem;
         }

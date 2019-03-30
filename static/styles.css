@@ -494,7 +494,7 @@ input[type="submit"] {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     font-size: 1.6rem; }
-    .videoPlayer .videoPlayer__controls .videoPlayer__column:first-child span:last-child {
+    .videoPlayer .videoPlayer__controls .videoPlayer__column:first-child span:not(:first-child) {
       margin-left: 3rem;
       font-size: 2.5rem; }
     .videoPlayer .videoPlayer__controls .videoPlayer__column:last-child {
