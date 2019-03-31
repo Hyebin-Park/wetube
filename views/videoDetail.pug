@@ -21,14 +21,19 @@ block content
                 a(href=routes.userDetail(videoDB.creator.id))=`${videoDB.creator.name}`
         div.video__comments
             if videoDB.comments.length === 1
-                span.video__comment-number 1 comment
+                span.video__comment-number 
+                    span.jsCommentNumber 1 
+                    |  comment
             else
-                span.video__comment-number #{videoDB.comments.length} comments
+                span.video__comment-number 
+                    span.jsCommentNumber=videoDB.comments.length
+                    |  comments
                 //- comment form에만 액션이나 http 메소드가 없는 이유 ? 자바스크립트에서 다룰 것이기 때문
             form.add__comment#jsAddComment
                 input(type="text", placeholder="Add a comment")
-            ul.video__comments-list
-                each comment in videoDB.comments
-                    span comment.text
+            ul.video__comments-list#jsCommentList
+                each comment in videoDB.comments.reverse()
+                    li
+                        span=comment.text
 
 

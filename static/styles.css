@@ -592,13 +592,12 @@ input[type="submit"] {
   .video-detail__container .video__player video {
     width: 100rem; }
   .video-detail__container .video__info {
-    -webkit-transform: translateX(-40rem);
-       -moz-transform: translateX(-40rem);
-        -ms-transform: translateX(-40rem);
-         -o-transform: translateX(-40rem);
-            transform: translateX(-40rem);
+    -webkit-transform: translateX(10rem);
+       -moz-transform: translateX(10rem);
+        -ms-transform: translateX(10rem);
+         -o-transform: translateX(10rem);
+            transform: translateX(10rem);
     width: 100%;
-    max-width: 20rem;
     margin-top: 2.5rem; }
     .video-detail__container .video__info button {
       width: 10rem;
@@ -618,19 +617,35 @@ input[type="submit"] {
   .video-detail__container .video__description {
     font-size: 1.6rem; }
   .video-detail__container .video__author {
-    font-size: 1rem; }
+    font-size: 1.3rem; }
     .video-detail__container .video__author a {
       color: #3498db; }
   .video-detail__container .video__comments {
     margin-top: 2.5rem;
     text-align: center; }
-    .video-detail__container .video__comments .video__comment-number {
+    .video-detail__container .video__comments .video__comment-number span, .video-detail__container .video__comments .video__comment-number {
       font-size: 1.8rem; }
     .video-detail__container .video__comments .add__comment {
       margin-top: 2.5rem;
       width: 100%; }
       .video-detail__container .video__comments .add__comment input {
         width: 100%; }
+    .video-detail__container .video__comments-list {
+      margin-top: 5rem; }
+      .video-detail__container .video__comments-list li {
+        background-color: #A3A3A3;
+        color: #444444;
+        padding: 1.5rem;
+        -webkit-border-radius: 2rem;
+           -moz-border-radius: 2rem;
+                border-radius: 2rem;
+        -webkit-border-bottom-left-radius: 0px;
+           -moz-border-radius-bottomleft: 0px;
+                border-bottom-left-radius: 0px; }
+        .video-detail__container .video__comments-list li span {
+          font-size: 1rem; }
+        .video-detail__container .video__comments-list li:not(:last-child) {
+          margin-bottom: 1.5rem; }
 
 .user-profile {
   width: 100%;
