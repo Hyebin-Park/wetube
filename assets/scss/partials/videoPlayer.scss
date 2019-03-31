@@ -4,6 +4,7 @@
     &:hover {
         .videoPlayer__controls {
             opacity: 1;
+
         }
     }
 
@@ -39,6 +40,8 @@
                     font-size: 2.5rem;
                 }
 
+                
+
                 .videoPlayer__volume {
                     position: absolute;
                     padding: 0;
@@ -50,6 +53,10 @@
                     width: 8rem;
         
                 }
+
+                // #jsVolumeBtn:active~.videoPlayer__volume{
+                //     opacity: 1;
+                // }
         
                 input {
                     background-color: rgba($black, .7);
@@ -88,3 +95,4 @@
 
     }
 }
+

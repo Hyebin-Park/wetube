@@ -1,7 +1,8 @@
 // res.render 함수에 들어가는 인자 1 : 템플릿 / 인자 2 : 템플릿에 추가할 정보가 담긴 객체
 
-import routes from "../routes"
+import routes from "../routes";
 import Video from "../models/Video";
+import Comment from "../models/Comment";
 
 export const home = async (req, res) => {
     try{
@@ -70,7 +71,9 @@ export const videoDetail = async (req, res) => {
     } = req;
     try {
         // populate("_") : ref에 할당시킨 모델을 기준으로 ObjectId를 실제 객체로 치환해주는 기능
-        const videoDB = await Video.findById(id).populate("creator");
+        const videoDB = await Video.findById(id)
+            .populate("creator")
+            .populate("comments");
         res.render("videoDetail", { pageTitle : videoDB.title, videoDB }); 
     } catch(error){
         res.redirect(routes.home);
@@ -141,6 +144,32 @@ export const postregisterView = async (req, res) => {
     try {
         const video = await Video.findById(id);
         video.views += 1;
+        video.save();
+        res.status(200);
+    }catch(error){
+        console.log(error)
+        res.status(400);
+    }finally {
+        res.end();
+
+    }
+}
+
+export const postAddComment = async (req, res) => {
+    const {
+        // FROM URL
+        params : { id },
+        // FROM FORM BODY
+        body: { comment },
+        user
+    } = req;
+    try {
+        const video = await Video.findById(id);
+        const newComment = await Comment.create({
+            text: comment,
+            creator: user.id
+        })
+        video.comments.push(newComment.id);
         video.save();
         res.status(200);
     }catch(error){
