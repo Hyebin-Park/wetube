@@ -1,0 +1,15 @@
+.record-container {
+    width: 100%;
+    max-width: 32rem;
+    margin-bottom: 5rem;
+
+
+    video {
+        width: 100%;
+        background-color: $black;
+        margin-bottom: 2rem;
+    }
+    button {
+        background-color: $blue;
+    }
+}
