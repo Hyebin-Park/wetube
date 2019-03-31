@@ -7,6 +7,7 @@ const volumeBtn = document.getElementById('jsVolumeBtn');
 const fullScrnBtn = document.getElementById('jsFullScreen');
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
+const volumeRange = document.getElementById("jsVolume");
 
 const handlePlayClick = () => {
     if(videoplayer.paused){
@@ -22,10 +23,13 @@ const handleVolumeClick = () => {
     if(videoplayer.muted){
         videoplayer.muted = false;
         volumeBtn.innerHTML = `<i class="fas fa-volume-up"></i>`
+        volumeRange.value = 0.5;
     } else {
         if(!videoplayer.muted) {
             videoplayer.muted = true;
-            volumeBtn.innerHTML = `<i class="fas fa-volume-mute"></i>`        
+            volumeBtn.innerHTML = `<i class="fas fa-volume-mute"></i>` 
+            volumeRange.value = 0;
+                   
         }
     }
 }
@@ -47,7 +51,7 @@ const goFullScreen = () => {
 
 
 const formatDate = (seconds) => {
-    console.log(seconds)
+    
     const secondsNumber = parseInt(seconds, 10);
     // 1시간 = 3600초 / 1분 = 60초 즉. 1시간, 1분 이하의 비디오의 경우 hours, minutes = 0
     let hours = Math.floor( secondsNumber / 3600 );
@@ -74,27 +78,58 @@ const formatDate = (seconds) => {
 }
 
 const getCurrentTime = () => {
-    currentTime.innerHTML = formatDate(videoplayer.currentTime);
+    currentTime.innerHTML = formatDate(Math.floor(videoplayer.currentTime));
+    
 }
 
 
 const setTotalTime = () => {
-    console.log(videoplayer.duration);
-    const totalTimeString = formatDate(videoplayer.duration);
+    const totalTimeString = formatDate(Math.floor(videoplayer.duration));
     totalTime.innerHTML = totalTimeString;
-    setInterval(getCurrentTime, 1000);
+    const setinterval = (function(){setInterval(getCurrentTime, 1000);})();
+    // if(Math.floor(videoplayer.currentTime) >= Math.floor(videoplayer.duration)){
+    //     clearInterval(setinterval);
+    // }
+   
+}
+
+const handleEnded = () => {
+    videoplayer.currentTime = 0;
+    playBtn.innerHTML = `<i class="fas fa-play"></i>`;
 }
 
 
+const handleDrag = (e) => {
+    const {
+        target : { value }
+    } = e;
 
+    videoplayer.volume = value;
+    console.log(value)
+    if(vlaue >= 0.6){
+        volumeBtn.innerHTML = `<i class="fas fa-volume-up"></i>`;
+        console.log(volumeBtn.innerHTML)
+    } else {
+        if(vlaue >= 0.2) {
+            volumeBtn.innerHTML = `<i class="fas fa-volume-down"></i>`;
+        } else {
+            volumeBtn.innerHTML = `<i class="fas fa-volume-off"></i>`;
+        }
+    }
+}
 
 const init = () => {
+    
     playBtn.addEventListener("click", handlePlayClick);
     volumeBtn.addEventListener("click", handleVolumeClick);
     fullScrnBtn.addEventListener("click", goFullScreen);
     videoplayer.addEventListener("loadedmetadata", setTotalTime);
+    videoplayer.addEventListener("ended", handleEnded);
+    volumeRange.addEventListener("input", handleDrag);
 }
 
 if(videoContainer){
-    init();
+    // window.onload = () => {
+        init();
+    // }
 }
