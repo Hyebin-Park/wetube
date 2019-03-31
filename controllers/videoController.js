@@ -134,6 +134,7 @@ export const deleteVideo = async(req, res) => {
 // URL for interacting with other server based on changing database
 
 export const postregisterView = async (req, res) => {
+    console.log(`!!!!!!!!!!this is the video!!!!!!!!`);
     const {
         params : { id }
     } = req;
@@ -143,6 +144,7 @@ export const postregisterView = async (req, res) => {
         video.save();
         res.status(200);
     }catch(error){
+        console.log(error)
         res.status(400);
     }finally {
         res.end();
